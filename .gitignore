@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+musicai/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated files
+processing/
+downloads/
+outputs/
+*.wav
+*.mp3
+*.flac
+*.ogg
+
+# Logs
+*.log
+
+database.db

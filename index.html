@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoWave 8D | Audio Immersion & Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+    const user = JSON.parse(localStorage.getItem('echowave_user') || 'null');
+if (!user) {
+    window.location.href = "/login.html";
+}
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #f3f3f3; 
+        }
+        @keyframes pulse-wave {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.03); }
+        }
+        .audio-glow {
+            animation: pulse-wave 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-[#1a1a1a] min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <header class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 flex flex-wrap items-center justify-between gap-4 z-10">
+        
+        <div class="flex items-center space-x-3">
+            <i data-lucide="waves" class="w-8 h-8 text-[#ff2a85]"></i>
+            <span class="text-2xl font-bold tracking-tight">EchoWave</span>
+        </div>
+        <nav class="hidden md:flex space-x-6 lg:space-x-8 font-medium text-sm tracking-wide">
+            <a href="#" class="hover:text-[#ff2a85] transition-colors">HOME</a>
+            <a href="#convert" class="hover:text-[#ff2a85] transition-colors">8D CONVERT</a>
+            <a href="#separate" class="hover:text-[#ff2a85] transition-colors">STEM SEPARATION</a>
+            <a href="#" class="hover:text-[#ff2a85] transition-colors">PRICING</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            <button class="hover:text-[#ff2a85] transition-colors"><i data-lucide="search" class="w-5 h-5"></i></button>
+            <button onclick="localStorage.removeItem('echowave_user'); window.location.href='/login.html';"
+        class="text-xs font-bold uppercase text-gray-400 hover:text-[#ff2a85]">
+    Logout
+</button>
+            
+        </div>
+    </header>
+
+    <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative">
+        
+        <div class="lg:col-span-5 space-y-4 sm:space-y-6 z-10 bg-[#f3f3f3]/80 backdrop-blur-sm lg:backdrop-blur-none p-4 rounded-xl text-center lg:text-left">
+            <div class="space-y-2">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-none">
+                    EchoWave 8D
+                </h1>
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold uppercase text-[#ff2a85] tracking-wide">
+                    Audio Immersion & Analysis
+                </h2>
+            </div>
+            <p class="text-gray-600 max-w-md mx-auto lg:mx-0 text-base sm:text-lg">
+                Transform standard tracks into dynamic, spatialized 8D sound landscapes or effortlessly isolate vocals and instruments.
+            </p>
+            <div class="pt-2 flex justify-center lg:justify-start space-x-6 text-xs font-bold uppercase tracking-wider text-gray-400">
+                <span>Fb</span><span>Tw</span><span>In</span>
+            </div>
+        </div>
+
+        <div class="lg:col-span-7 flex flex-col items-center justify-center relative w-full h-[250px] sm:h-[350px] lg:h-[500px]">
+            <div class="absolute w-[80%] h-[80%] rounded-full bg-gradient-to-r from-[#ff2a85]/10 to-purple-500/5 blur-xl audio-glow"></div>
+            <img src="hero-art.png" alt="ZAZ 968M and Guitarist Illustration" class="absolute inset-0 w-full h-full object-contain z-0 mix-blend-multiply opacity-95" onerror="this.src='https://images.unsplash.com/photo-1614680376593-902f74fa0d41?auto=format&fit=crop&w=800&q=80'; this.style.opacity='0.2';">
+        </div>
+    </main>
+
+    <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 pb-12 grid grid-cols-1 md:grid-cols-2 gap-6 z-10">
+        
+        <div id="convert" class="bg-white border-2 border-black rounded-xl p-4 sm:p-6 flex flex-col justify-between shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
+            <div>
+                <h3 class="text-lg sm:text-xl font-bold uppercase flex items-center gap-2">
+                    <i data-lucide="move-3d" class="text-[#ff2a85]"></i> 8D Converter
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-500 mt-1">Immersive spatial panning engine.</p>
+            </div>
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                <input type="file" id="file-8d" class="hidden" onchange="updateStatus(this, '8D')">
+                <label for="file-8d" class="flex-grow border-2 border-dashed border-gray-300 rounded-lg p-3 flex items-center justify-center cursor-pointer hover:border-[#ff2a85] transition-colors text-xs font-bold uppercase tracking-wider text-gray-500 text-center">
+                    Drop Audio File
+                </label>
+                <button class="bg-[#ff2a85] text-white font-bold px-6 py-3 rounded-lg border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-[#e02073] text-sm uppercase tracking-wider transition-colors">
+                    Convert
+                </button>
+            </div>
+        </div>
+
+        <div id="separate" class="bg-white border-2 border-black rounded-xl p-4 sm:p-6 flex flex-col justify-between shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
+            <div>
+                <h3 class="text-lg sm:text-xl font-bold uppercase flex items-center gap-2">
+                    <i data-lucide="scissors" class="text-black"></i> Stem Separator
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-500 mt-1">Isolate acapellas or instrumentals.</p>
+            </div>
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                <input type="file" id="file-stem" class="hidden" onchange="updateStatus(this, 'Separation')">
+                <label for="file-stem" class="flex-grow border-2 border-dashed border-gray-300 rounded-lg p-3 flex items-center justify-center cursor-pointer hover:border-black transition-colors text-xs font-bold uppercase tracking-wider text-gray-500 text-center">
+                    Upload Track
+                </label>
+                <button class="bg-black text-white font-bold px-6 py-3 rounded-lg border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-800 text-sm uppercase tracking-wider transition-colors">
+                    Separate
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div id="download-area" class="hidden max-w-7xl mx-auto px-4 sm:px-6 pb-8 text-center">
+        <h3 class="text-2xl font-bold mb-4">
+            <span id="download-heading">Processing Complete</span>
+        </h3>
+
+        <audio id="preview" controls class="hidden w-full max-w-xl mx-auto mb-6"></audio>
+
+        <a
+            id="download-link"
+            href="#"
+            class="bg-[#ff2a85] text-white px-8 py-3 rounded-lg font-bold cursor-pointer inline-block border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-[#e02073] transition-colors"
+        >
+            Download
+        </a>
+    </div>
+
+    <footer class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs font-bold text-gray-400 tracking-wider text-center sm:text-left">
+        <div>STATUS: READY</div>
+        <div id="file-status" class="text-[#ff2a85] break-all max-w-full">NO FILE UPLOADED</div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function updateStatus(input, mode) {
+            const status = document.getElementById('file-status');
+            if (input.files && input.files[0]) {
+                status.innerText = `READY TO PROCESS: ${input.files[0].name.toUpperCase()} (${mode})`;
+            }
+        }
+
+        const convertBtn = document.querySelector('#convert button');
+        const fileInput = document.getElementById('file-8d');
+        const statusDisplay = document.getElementById('file-status');
+
+        const separateBtn = document.querySelector('#separate button');
+        const stemInput = document.getElementById('file-stem');
+
+        const downloadArea = document.getElementById('download-area');
+        const downloadHeading = document.getElementById('download-heading');
+        const downloadLink = document.getElementById('download-link');
+        const preview = document.getElementById('preview');
+
+        function showDownload({ heading, url, filename, label, previewable }) {
+            downloadHeading.innerText = heading;
+            downloadLink.href = url;
+            downloadLink.target = "_self";
+            downloadLink.download = filename;
+            downloadLink.innerText = label;
+
+            if (previewable) {
+                preview.src = url;
+                preview.classList.remove('hidden');
+            } else {
+                preview.classList.add('hidden');
+                preview.removeAttribute('src');
+            }
+
+            downloadArea.classList.remove('hidden');
+            downloadArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        convertBtn.addEventListener('click', async () => {
+            // FIXED: Checked fileInput.files.length instead of files[0].length 
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert("Please drop or upload an audio track first!");
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+            
+            statusDisplay.innerText = "PROCESSING 8D SPATIAL AUDIO (THIS TAKES A MOMENT)...";
+            downloadArea.classList.add('hidden');
+            convertBtn.disabled = true;
+            convertBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            const convertBtnOriginalText = convertBtn.innerHTML;
+            convertBtn.innerHTML = `<span class="animate-pulse">Processing...</span>`;
+            
+            try {
+                const response = await fetch('http://127.0.0.1:8000/process-8d/', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) throw new Error("Processing failed on server.");
+                
+                const blob = await response.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const base = file.name.replace(/\.[^/.]+$/, "");
+                
+                showDownload({
+                    heading: "Conversion Complete",
+                    url: downloadUrl,
+                    filename: `${base}_EchoWave_8D.wav`,
+                    label: "Download 8D Audio",
+                    previewable: true
+                });
+                
+                statusDisplay.innerText = "SUCCESS! 8D RENDER READY.";
+            } catch (err) {
+                console.error(err);
+                statusDisplay.innerText = "ERROR OCCURRED DURING RENDERING.";
+            } finally {
+                convertBtn.disabled = false;
+                convertBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                convertBtn.innerHTML = convertBtnOriginalText;
+            }
+        });
+
+        separateBtn.addEventListener('click', async () => {
+            if (!stemInput.files || stemInput.files.length === 0) {
+                alert("Upload a song first.");
+                return;
+            }
+
+            const file = stemInput.files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+
+            statusDisplay.innerText = "SEPARATING STEMS (THIS TAKES A MOMENT)...";
+            downloadArea.classList.add('hidden');
+            separateBtn.disabled = true;
+            separateBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            const separateBtnOriginalText = separateBtn.innerHTML;
+            separateBtn.innerHTML = `<span class="animate-pulse">Separating...</span>`;
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/separate/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error("Separation failed on server.");
+
+                const blob = await response.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const base = file.name.replace(/\.[^/.]+$/, "");
+
+                showDownload({
+                    heading: "Stem Separation Complete",
+                    url: downloadUrl,
+                    filename: `${base}_Stems.zip`,
+                    label: "Download Stems ZIP",
+                    previewable: false
+                });
+
+                statusDisplay.innerText = "SUCCESS! STEMS READY.";
+            } catch (err) {
+                console.log(err);
+                statusDisplay.innerText = "ERROR OCCURRED DURING SEPARATION.";
+            } finally {
+                separateBtn.disabled = false;
+                separateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                separateBtn.innerHTML = separateBtnOriginalText;
+            }
+        });
+    </script>
+</body>
+</html>
